@@ -5,10 +5,10 @@ import pool from '../../config/db.js'
 const authService = new AuthService(pool)
 
 const cookieOptions = {
-  httpOnly: true,       // JS del browser no puede leerla
-  secure: process.env.NODE_ENV === 'production', // solo HTTPS en prod
-  sameSite: 'strict',
-  maxAge: 7 * 24 * 60 * 60 * 1000  // 7 días en ms
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000
 }
 
 class AuthController {
