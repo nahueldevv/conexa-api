@@ -3,8 +3,12 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 
+import pool from './config/db.js'
+
 import authRoutes from './modules/auth/auth.routes.js'
 import profileRoutes from './modules/profile/profile.routes.js'
+import offersRoutes from './modules/offers/offers.routes.js'
+import demandsRoutes from './modules/demands/demands.routes.js'
 
 dotenv.config()
 
@@ -32,6 +36,13 @@ app.use(cookieParser())
 
 app.use('/api/auth', authRoutes)
 app.use('/api/profile', profileRoutes)
+app.use('/api/offers', offersRoutes)
+app.use('/api/demands', demandsRoutes)
+
+app.get('/api/document-types', async (req, res) => {
+  const result = await pool.query('SELECT * FROM document_types ORDER BY name')
+  res.json({ document_types: result.rows })
+})
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', project: 'CONEXA API' })
