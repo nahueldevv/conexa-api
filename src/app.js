@@ -9,6 +9,7 @@ import authRoutes from './modules/auth/auth.routes.js'
 import profileRoutes from './modules/profile/profile.routes.js'
 import offersRoutes from './modules/offers/offers.routes.js'
 import demandsRoutes from './modules/demands/demands.routes.js'
+import proposalsRoutes from './modules/proposals/proposals.routes.js'
 
 dotenv.config()
 
@@ -38,6 +39,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/profile', profileRoutes)
 app.use('/api/offers', offersRoutes)
 app.use('/api/demands', demandsRoutes)
+app.use('/api', proposalsRoutes)
 
 app.get('/api/document-types', async (req, res) => {
   const result = await pool.query('SELECT * FROM document_types ORDER BY name')
